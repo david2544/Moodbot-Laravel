@@ -89,7 +89,7 @@ class SendSlackMessage extends Command
                             "confirm": {
                                 "title": "We are sad to hear that.",
                                 "text": "Would you like to tell me why?",
-                                "ok_text": "Yes",
+                                "ok_text": "Yes sure",
                                 "dismiss_text": "No"
                             }
                         }
