@@ -15,10 +15,6 @@ class HelloBotCommandsController extends Controller
      * Handle when user says "hello"
      * @param $bot
      */
-    public function handleSayHello($bot)
-    {
-        $bot->reply("I am mood bot");
-    }
 
     /**
      * Handle when user says "hello, I'm {name}"

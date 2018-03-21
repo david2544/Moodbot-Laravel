@@ -16,7 +16,6 @@ class BotManController extends Controller
 
         $botman = app('botman');
 
-        $botman->hears('hi', 'App\Http\Controllers\Listen\HelloBotCommandsController@handleSayHello');
         $botman->hears("hello I'm {name}", 'App\Http\Controllers\Listen\HelloBotCommandsController@handleSayHelloWithName');
         $botman->hears('mood', 'App\Http\Controllers\Listen\HelloBotCommandsController@handleMood');
         $botman->fallback(function($bot) {
