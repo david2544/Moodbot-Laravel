@@ -24,7 +24,7 @@ class HelloBotCommandsController extends Controller
     {
         $bot->reply("Hello, $name. I'm Mood bot");
     }
-    
+
 
     public static function handleMood($bot)
     {

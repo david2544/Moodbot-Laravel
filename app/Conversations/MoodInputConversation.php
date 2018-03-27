@@ -8,7 +8,7 @@ use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 
-class MoodImputConversation extends Conversation
+class MoodInputConversation extends Conversation
 {
     /**
      * First question
@@ -58,21 +58,6 @@ class MoodImputConversation extends Conversation
             }
         });
 
-//            ->addButtons([
-//                Button::create('Tell a joke')->value('joke'),
-//                Button::create('Give me a fancy quote')->value('quote'),
-//            ]);
-//
-//        return $this->ask($question, function (Answer $answer) {
-//            if ($answer->isInteractiveMessageReply()) {
-//                if ($answer->getValue() === 'joke') {
-//                    $joke = json_decode(file_get_contents('http://api.icndb.com/jokes/random'));
-//                    $this->say($joke->value->joke);
-//                } else {
-//                    $this->say(Inspiring::quote());
-//                }
-//            }
-//        });
     }
 
     /**
