@@ -2,13 +2,9 @@
 
 namespace App\Console\Commands;
 
-use BotMan\BotMan\BotMan;
+use App\Http\Controllers\Listen\HelloBotCommandsController;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
-use BotMan\Drivers\Slack\Extensions\Menu;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
-use App\Conversations\ExampleConversation;
 use \BotMan\Drivers\Slack\SlackDriver;
 use \BotMan\BotMan\Messages\Outgoing\Question;
 
@@ -46,18 +42,19 @@ class SendSlackMessage extends Command
     {
 
         $botman = app('botman');
+        $botman->loadDriver('Slack');
+        $response = $botman->sendRequest('users.list');
+        $users = json_decode($response->getContent(), true);
+        $emails = collect($users['members'])->pluck('profile.email', 'id')->filter()->flip()->all();
 
-        $question = Question::create('How are you feeling today?')
-            ->addButtons([
-                    Button::create('Happy :grin:')->value('5'),
-                    Button::create('Neutral :neutral_face:')->value('4'),
-                    Button::create('Sick :face_with_thermometer:')->value('3'),
-                    Button::create('Angry :angry:')->value('2'),
-                    Button::create('Sad :pensive:')->value('1'),
-                    Button::create('Unamused :unamused:')->value('3'),
-            ]);
 
-        $botman->say($question, 'C9FHM6Q1X', SlackDriver::class);
+        foreach($emails as $key => $value)
+        {
+            //HelloBotCommandsController::handleMood();
+            $botman->say('Hello', $value, SlackDriver::class);
+        }
+
+        //$botman->say($question, 'C9FHM6Q1X', SlackDriver::class);
 
     }
 }
