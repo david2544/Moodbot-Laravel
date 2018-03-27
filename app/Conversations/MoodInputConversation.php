@@ -2,7 +2,6 @@
 
 namespace App\Conversations;
 
-use Illuminate\Foundation\Inspiring;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
@@ -31,7 +30,7 @@ class MoodInputConversation extends Conversation
                     Button::create('Unamused :unamused:')->value('3'),
                 ]);
 
-            if ($response->getText() === 'yes' || 'sure' || 'okay' || 'ok' || 'yup' || 'of course' || 'alright' || 'ja' || 'ya') {
+            if ($response->getText() === 'yes') {
                 $this->ask($question, function (Answer $answer) {
                     if ($answer->isInteractiveMessageReply()) {
                         if ($answer->getValue() === '5') {
