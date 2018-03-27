@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Listen;
 
-use App\Conversations\ExampleConversation;
-use App\Conversations\MoodImputConversation;
+use App\Conversations\MoodInputConversation;
 use App\Http\Controllers\Controller;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Outgoing\Question;
@@ -25,32 +24,11 @@ class HelloBotCommandsController extends Controller
     {
         $bot->reply("Hello, $name. I'm Mood bot");
     }
-    //replace for now by function handleMood
-    public function hearsMoods($bot)
+    
+
+    public static function handleMood($bot)
     {
-        $bot->reply("Would you like to input your mood for today?");
-
-        $question = Question::create('How are you feeling today?')
-            ->addButtons([
-                Button::create('Happy :grin:')->value('5'),
-                Button::create('Neutral :neutral_face:')->value('4'),
-                Button::create('Sick :face_with_thermometer:')->value('3'),
-                Button::create('Angry :angry:')->value('2'),
-                Button::create('Sad :pensive:')->value('1'),
-                Button::create('Unamused :unamused:')->value('3'),
-            ]);
-
-
-        $user = $bot->getUser();
-        // Access ID
-        $id = $user->getId();
-
-        $bot->say($question, $id, SlackDriver::class);
-    }
-
-    public function handleMood($bot)
-    {
-        $bot->startConversation(new MoodImputConversation);
+        $bot->startConversation(new MoodInputConversation);
     }
 
 }
