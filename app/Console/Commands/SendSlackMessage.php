@@ -6,7 +6,9 @@ use App\Http\Controllers\Listen\HelloBotCommandsController;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use Illuminate\Console\Command;
 use \BotMan\Drivers\Slack\SlackDriver;
-use \BotMan\BotMan\Messages\Outgoing\Question;
+use App\Conversations\MoodInputConversation;
+use App\Http\Controllers\Controller;
+use BotMan\BotMan\Messages\Outgoing\Question;
 
 /* As filename states, this is a COMMAND! There is no view for this file!
    The Command to be used to activate the function below is php artisan schedule:daemon
@@ -20,14 +22,14 @@ class SendSlackMessage extends Command
      *
      * @var string
      */
-    protected $signature = 'schedule:daemon {--sleep=120 }';
+    protected $signature = 'schedule:daemon';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Call the scheduler every day.';
+    //protected $description = 'Call the scheduler every day.';
 
     /**
      * Execute the console command.
@@ -41,20 +43,27 @@ class SendSlackMessage extends Command
     public function handle()
     {
 
-        $botman = app('botman');
-        $botman->loadDriver('Slack');
-        $response = $botman->sendRequest('users.list');
-        $users = json_decode($response->getContent(), true);
-        $emails = collect($users['members'])->pluck('profile.email', 'id')->filter()->flip()->all();
+        //$new = new HelloBotCommandsController();
+        //$new->sendSlackMessage();
+
+//        $botman = app('botman');
+//        $botman->loadDriver('Slack');
+//        $response = $botman->sendRequest('users.list');
+//        $users = json_decode($response->getContent(), true);
+//        $emails = collect($users['members'])->pluck('profile.email', 'id')->filter()->flip()->all();
+//
+//        //$botman->startConversation(new MoodInputConversation(), 'C9FHM6Q1X', SlackDriver::class);
+//        //$botman->say($question, 'C9FHM6Q1X', SlackDriver::class);
+//
+//
+//        foreach($emails as $key => $value)
+//        {
+//            $botman->startConversation(new MoodInputConversation(), $value, SlackDriver::class);
+//
+//        }
 
 
-        foreach($emails as $key => $value)
-        {
-            //HelloBotCommandsController::handleMood();
-            $botman->say('Hello', $value, SlackDriver::class);
-        }
 
-        //$botman->say($question, 'C9FHM6Q1X', SlackDriver::class);
 
     }
 }

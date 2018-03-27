@@ -17,7 +17,7 @@ class MoodInputConversation extends Conversation
     {
 
 
-        $this->ask('Would you like to introduce your mood input for today?', function (Answer $response) {
+        $this->ask('Would you like to introduce your mood input for today?  ?', function (Answer $response) {
 
             $question = Question::create('How are you feeling today?')
                 ->fallback('Unable to ask question')

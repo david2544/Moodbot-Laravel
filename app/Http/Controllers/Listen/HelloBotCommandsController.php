@@ -25,10 +25,48 @@ class HelloBotCommandsController extends Controller
         $bot->reply("Hello, $name. I'm Mood bot");
     }
 
-
-    public static function handleMood($bot)
+    public function sendSlackMessage()
     {
-        $bot->startConversation(new MoodInputConversation);
+
+        $botman = app('botman');
+        $botman->loadDriver('Slack');
+        $response = $botman->sendRequest('users.list');
+        $users = json_decode($response->getContent(), true);
+        $emails = collect($users['members'])->pluck('profile.email', 'id')->filter()->flip()->all();
+
+        //$botman->startConversation(new MoodInputConversation(), 'C9FHM6Q1X', SlackDriver::class);
+        //$botman->say($question, 'C9FHM6Q1X', SlackDriver::class);
+
+
+        foreach($emails as $key => $value)
+        {
+            $botman->startConversation(new MoodInputConversation(), $value, SlackDriver::class);
+
+        }
+
+
+    }
+
+
+    public function handleMood($bot)
+    {
+        $botman = app('botman');
+        $botman->loadDriver('Slack');
+        $response = $botman->sendRequest('users.list');
+        $users = json_decode($response->getContent(), true);
+        $emails = collect($users['members'])->pluck('profile.email', 'id')->filter()->flip()->all();
+
+        //$botman->startConversation(new MoodInputConversation(), 'C9FHM6Q1X', SlackDriver::class);
+        //$botman->say($question, 'C9FHM6Q1X', SlackDriver::class);
+
+
+        foreach($emails as $key => $value)
+        {
+            $bot->startConversation(new MoodInputConversation(), $value, SlackDriver::class);
+
+        }
+
+        //$bot->startConversation(new MoodInputConversation);
     }
 
 }
